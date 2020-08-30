@@ -1,0 +1,40 @@
+.gray{background-color: #eee;}
+.card-button{text-align: right;}
+.btn-green{background-color: aquamarine;}
+.btn-gray{background-color: #ccc; color:#222;}
+.tutor-name{font-size: 18px; font-weight: bold; color:#444;}
+.checkicon{position: absolute; top: 0; right: 0; z-index: 1;}
+.stars{display:flex;}
+.stars .eval{font-size: 12px; margin-left:5px; line-height: 1; color:#444;}
+.country img{width: 32px; margin-right: 5px; margin-left: 5px;}
+.classbox span{display: inline-block; margin: 2px 3px 0px; border-radius: 4px; font-size: 10px; line-height: 18px; color: rgb(119, 119, 119); background: rgb(245, 245, 245);
+    padding: 7px 12px; height: 32px; margin-top:1px;}
+.tutor-txt{font-size: 14px; line-height: 1.4; color: rgb(119, 119, 119); cursor: pointer; font-weight: 300; margin-bottom: 10px; margin-top: 10px;}
+.tutor-container{padding:0 3.33;}
+.tutor-list{padding:16px; margin: 0 auto;}
+.tutor-list > a{width:453.33px; margin-right:10px;}
+.tutor-list .img-fluid, .modal .img-fluid{max-height: 100px;}
+.figure-img{width:100px; height:100px;}
+.checkicon .MuiFormControlLabel-root{margin:0}
+.checkicon .MuiSvgIcon-root{width:1.5em; height:1.5em}
+.icon{position: absolute; top: 111px; left: 11px; z-index: 1; width:15px; height:15px; background-color: #ccc; border:2px solid rgb(250 250 250); border-radius: 4px;}
+.icon.on{background-color: rgb(150 196 94);}
+.icon.off{background-color: red;}
+
+.modal .modal-header{background-color: #fff; border-bottom:none; min-height: 218px;}
+.modal .modal-header .header-cont{margin:35px 20px 0; padding:0 10px 20px; position: relative; border-bottom: 1px solid #dee2e6;}
+.modal .modal-header .close {position: absolute; top: 1rem; font-size: 3rem;}
+.modal .icon{top: 85px; left: 80px; z-index: 1; width:20px; height:20px; border-radius: 100%;}
+.modal .modal-content{border-radius: .7rem; max-height: 900px;}
+.modal .tutor-name{font-size: 2.4rem; font-weight: 500; color:#444;}
+.modal .country > span{font-size:1.6rem; color:#222}
+.modal .cont-box{padding: 8px 0}
+.modal .cont-box.flex{display: flex; flex-wrap:wrap; justify-content: space-evenly; align-items: center; width:100%}
+.modal .cont-box .classbox span{display: inline-block; margin: 2px 3px 0px; border-radius: 4px; font-size: 10px; line-height: 18px; color: rgb(119, 119, 119); background: rgb(245, 245, 245); padding: 7px 12px; height: 32px; margin-top:1px;}
+.modal .cont-box .stars .eval{display: inline-block; font-size: 12px; margin-left:5px; line-height: 1; color:#444;}
+.modal .cont-box .stars, .modal .cont-box .classbox{display: inline-block;}
+.modal .cont-box .detail-box > span{display: inline-block; font-size: 1.4rem; background-color: #228891; border-radius: 50px; color:#fff; padding:5px 10px; margin-right: 5px; margin-bottom:5px}
+
+@media (min-width:320px) and (max-width:500px){
+    .tutor-list > a{width:100%; margin-right:0}
+}

@@ -5,21 +5,23 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
+
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
+
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {Container} from "@material-ui/core";
-import ContentContainer from "./container/content-container";
-import TutorContainer from "./container/tutor-container";
-import HomeContainer from "./container/home-container";
 
+import ReactMaterialUiNotifications from './component/ReactMaterialUiNotifications'
+import HomeContainer from "./container/home-container";
+import moment from 'moment';
+import {deepOrange500} from 'material-ui/styles/colors'
+import Message from 'material-ui/svg-icons/communication/message'
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -94,6 +96,17 @@ export default function PrimarySearchAppBar() {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+    debugger;
+    ReactMaterialUiNotifications.showNotification({
+      title: 'Title',
+      additionalText: `Some message to be displayed `,
+      icon: <Message />,
+      iconBadgeColor: deepOrange500,
+      overflowText: "joe@gmail.com",
+      timestamp: moment().format('h:mm A')
+    })
+
+
   };
 
   const handleMobileMenuClose = () => {
@@ -212,10 +225,20 @@ export default function PrimarySearchAppBar() {
 
         <Container>
           <Route path="/" component={HomeContainer} />
-          <Route path="/tutors" component={TutorContainer} />
 
 
         </Container>
+        <ReactMaterialUiNotifications
+            desktop={true}
+            transitionName={{
+              leave: 'dummy',
+              leaveActive: 'fadeOut',
+              appear: 'dummy',
+              appearActive: 'zoomInUp'
+            }}
+            transitionAppear={true}
+            transitionLeave={true}
+        />
       </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -17,6 +17,12 @@ import {Button} from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from "@material-ui/core/Box";
+
+
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -59,8 +65,24 @@ export default function ControlledAccordions() {
         setExpanded(isExpanded ? panel : false);
     };
 
-    return (
+    useEffect(() => {
+       /** store.addNotification({
+            title: "Wonderful!",
+            message: "teodosii@react-notifications-component",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeIn"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: true
+            }
+        });**/
+    }, []);
 
+    return (
+        <>
         <div className={classes.root}>
             <Box component="span" m={1}>
 
@@ -186,6 +208,20 @@ export default function ControlledAccordions() {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
+
+
         </div>
+
+            <Box
+                bgcolor="background.paper"
+                color="text.primary"
+                p={1}
+                position="fixed"
+                right={10}
+                bottom={0}
+                zIndex="tooltip"
+            > <Button variant="contained" color="secondary">주문하기</Button>
+            </Box>
+            </>
     );
 }

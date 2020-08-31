@@ -19,6 +19,16 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from "@material-ui/core/Box";
 
 
+import Grid from '@material-ui/core/Grid';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+
+
+
+
+
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 
@@ -38,7 +48,14 @@ const useStyles = makeStyles((theme) => ({
     },
     table: {
         minWidth: 200,
+    },paper: {
+        height: 70,
+        width: 50,
     },
+    mainbutton : {
+        margin:10
+    }
+
 }));
 
 
@@ -65,6 +82,8 @@ export default function ControlledAccordions() {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const [spacing, setSpacing] = React.useState(2);
+
     useEffect(() => {
        /** store.addNotification({
             title: "Wonderful!",
@@ -84,6 +103,23 @@ export default function ControlledAccordions() {
     return (
         <>
         <div className={classes.root}>
+
+            <Box component="span" m={1}>
+
+            </Box>
+            <Grid container className={classes.root} spacing={2}>
+                <Grid item xs={12}>
+                    <Grid container justify="center" spacing={spacing}>
+                        {[0, 1, 2,3,4,5,6,7,8,9,10,11,12,13].map((value) => (
+                            <Grid key={value} item>
+                                <Paper className={classes.paper} title={'coffe'}  > 카라멜라떼 </Paper>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Grid>
+
+            </Grid>
+
             <Box component="span" m={1}>
 
             </Box>
@@ -220,7 +256,9 @@ export default function ControlledAccordions() {
                 right={10}
                 bottom={0}
                 zIndex="tooltip"
-            > <Button variant="contained" color="secondary">주문하기</Button>
+            >
+                <Button variant="contained" color="default" className={classes.mainbutton}>주문변경</Button>
+                <Button variant="contained" color="secondary" className={classes.mainbutton}>주문하기</Button>
             </Box>
             </>
     );

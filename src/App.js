@@ -16,12 +16,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {Container} from "@material-ui/core";
-
-import ReactMaterialUiNotifications from './component/ReactMaterialUiNotifications'
 import HomeContainer from "./container/home-container";
-import moment from 'moment';
-import {deepOrange500} from 'material-ui/styles/colors'
-import Message from 'material-ui/svg-icons/communication/message'
+import OrderContainer from "./container/order-container";
+
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -86,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(history) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -96,17 +94,14 @@ export default function PrimarySearchAppBar() {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
-    debugger;
-    ReactMaterialUiNotifications.showNotification({
-      title: 'Title',
-      additionalText: `Some message to be displayed `,
-      icon: <Message />,
-      iconBadgeColor: deepOrange500,
-      overflowText: "joe@gmail.com",
-      timestamp: moment().format('h:mm A')
-    })
 
 
+  };
+
+
+  const handleGoToOrder = (event) => {
+    //Link.props.to = '/orders';
+    history.push( '/orders')
   };
 
   const handleMobileMenuClose = () => {
@@ -184,18 +179,21 @@ export default function PrimarySearchAppBar() {
             >
               <MenuIcon />
             </IconButton>
+            <Link to={'/'}>
             <Typography className={classes.title} variant="h6" noWrap>
               CafeR
             </Typography>
-
+            </Link>
             <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-
-              <IconButton aria-label="show 17 new notifications" color="inherit">
+            <div  >
+            <Link to={'/orders'}>x
+              <IconButton aria-label="show 17 new notifications" color="inherit"
+                         >
                 <Badge badgeContent={17} color="secondary">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
+            </Link>
               <IconButton
                   edge="end"
                   aria-label="account of current user"
@@ -207,38 +205,19 @@ export default function PrimarySearchAppBar() {
                 <AccountCircle />
               </IconButton>
             </div>
-            <div className={classes.sectionMobile}>
-              <IconButton
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </div>
+
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
 
         <Container>
-          <Route path="/" component={HomeContainer} />
+          <Route  exact path="/" component={HomeContainer} />
+          <Route path="/orders" component={OrderContainer} />
 
 
         </Container>
-        <ReactMaterialUiNotifications
-            desktop={true}
-            transitionName={{
-              leave: 'dummy',
-              leaveActive: 'fadeOut',
-              appear: 'dummy',
-              appearActive: 'zoomInUp'
-            }}
-            transitionAppear={true}
-            transitionLeave={true}
-        />
+
       </div>
   );
 }

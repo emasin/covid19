@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -74,16 +74,27 @@ const rows = [
 
 
 
+
 export default function ControlledAccordions() {
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
 
+    const [orders, setOrders] = useState([]);
+    const [expanded, setExpanded] = React.useState(false);
+    const [hasOrder, setHasOrder] = useState(false);
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
     const [spacing, setSpacing] = React.useState(2);
 
+    const order=(item)=>{
+        console.log(item);
+        setHasOrder(true);
+    }
+
+    const addOrder=(item)=>{
+        console.log(item);
+    }
     useEffect(() => {
        /** store.addNotification({
             title: "Wonderful!",
@@ -120,7 +131,7 @@ export default function ControlledAccordions() {
 
             </Grid>
 
-            <Box component="span" m={1}>
+            <Box component="span" m={1}     >
 
             </Box>
             <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -145,13 +156,14 @@ export default function ControlledAccordions() {
                             <TableBody>
                                 {rows.map((row) => (
                                     <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row">
+                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
                                             {row.name}
                                         </TableCell>
                                         <TableCell>{row.calories}</TableCell>
                                         <TableCell align={"right"}>
-                                            <IconButton aria-label="delete" className={classes.margin}>
-                                                <AddCircleOutlineIcon />
+                                            <IconButton aria-label="add" className={classes.margin}
+                                              onClick={()=>addOrder(row)}>
+                                                <AddCircleOutlineIcon   />
                                             </IconButton>
                                          </TableCell>
 
@@ -247,7 +259,7 @@ export default function ControlledAccordions() {
 
 
         </div>
-
+            {( hasOrder &&
             <Box
                 bgcolor="background.paper"
                 color="text.primary"
@@ -260,6 +272,7 @@ export default function ControlledAccordions() {
                 <Button variant="contained" color="default" className={classes.mainbutton}>주문변경</Button>
                 <Button variant="contained" color="secondary" className={classes.mainbutton}>주문하기</Button>
             </Box>
+            )}
             </>
     );
 }

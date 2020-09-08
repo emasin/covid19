@@ -31,11 +31,15 @@ import Radio from '@material-ui/core/Radio';
 
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-
-
+import Card from "@material-ui/core/Card";
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+    },
+    media: {
+        height: 110,
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -54,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     },
     mainbutton : {
         margin:10
+    },
+    title : {
+        height : 15,
+        margin:0
     }
 
 }));
@@ -121,9 +129,31 @@ export default function ControlledAccordions() {
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12}>
                     <Grid container justify="center" spacing={spacing}>
-                        {[0, 1, 2,3,4,5,6,7,8,9,10,11,12,13].map((value) => (
+                        {[0, 1, 2,3,4,5,6,7].map((value) => (
                             <Grid key={value} item>
-                                <Paper className={classes.paper} title={'coffe'}  > 카라멜라떼 </Paper>
+                                <Card className={classes.root}>
+                                    {/**
+                                     coffee https://static.thenounproject.com/png/3413795-200.png
+                                     noncoffee https://static.thenounproject.com/png/138917-200.png
+                                     tea https://static.thenounproject.com/png/2892478-200.png
+                                     ade https://static.thenounproject.com/png/429287-200.png
+                                     coldbrew https://static.thenounproject.com/png/1898526-200.png
+                                     juice https://static.thenounproject.com/png/3511507-200.png
+                                     */}
+                                    <CardMedia
+                                        className={classes.media}
+
+                                        image="https://static.thenounproject.com/png/3413795-200.png"
+                                        title="Contemplative Reptile"
+                                    />
+                                    <CardContent>
+                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                            CaffeAmeriacno
+                                        </Typography>
+
+                                    </CardContent>
+
+                                </Card>
                             </Grid>
                         ))}
                     </Grid>

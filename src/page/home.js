@@ -32,11 +32,15 @@ import { green } from '@material-ui/core/colors';
 
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-
-
+import Card from "@material-ui/core/Card";
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+    },
+    media: {
+        height: 110,
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -55,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
     },
     mainbutton : {
         margin:10
+    },
+    title : {
+        height : 15,
+        margin:0
     }
 
 }));
@@ -134,170 +142,188 @@ export default function ControlledAccordions() {
 
     return (
         <>
-            <div className={classes.root}>
+        <div className={classes.root}>
 
-                <Box component="span" m={1}>
+            <Box component="span" m={1}>
 
-                </Box>
-                <Grid container className={classes.root} spacing={2}>
-                    <Grid item xs={12}>
-                        <Grid container justify="center" spacing={spacing}>
-                            {orders.map((o, i) => (
-                                <Grid key={i} item>
-                                    <Paper className={classes.paper} title={o.name}  > {o.name}
-                                        <Icon className="fa fa-plus-circle" style={{ color: green[500] }} />
-                                    </Paper>
+            </Box>
+            <Grid container className={classes.root} spacing={2}>
+                <Grid item xs={12}>
+                    <Grid container justify="center" spacing={spacing}>
+                        {[0, 1, 2,3,4,5,6,7].map((value) => (
+                            <Grid key={value} item>
+                                <Card className={classes.root}>
+                                    {/**
+                                     coffee https://static.thenounproject.com/png/3413795-200.png
+                                     noncoffee https://static.thenounproject.com/png/138917-200.png
+                                     tea https://static.thenounproject.com/png/2892478-200.png
+                                     ade https://static.thenounproject.com/png/429287-200.png
+                                     coldbrew https://static.thenounproject.com/png/1898526-200.png
+                                     juice https://static.thenounproject.com/png/3511507-200.png
+                                     */}
+                                    <CardMedia
+                                        className={classes.media}
 
-                                </Grid>
-                            ))}
-                        </Grid>
+                                        image="https://static.thenounproject.com/png/3413795-200.png"
+                                        title="Contemplative Reptile"
+                                    />
+                                    <CardContent>
+                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                            CaffeAmeriacno
+                                        </Typography>
+
+                                    </CardContent>
+
+                                </Card>
+                            </Grid>
+                        ))}
                     </Grid>
-
                 </Grid>
 
-                <Box component="span" m={1}>
+            </Grid>
 
-                </Box>
-                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                    >
-                        <Typography className={classes.heading}>ESPRESSO</Typography>
-                        <Typography className={classes.secondaryHeading}>메뉴명 선택 시 즉시 주문</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <TableContainer component={Paper}>
-                            <Table className={classes.table} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>메뉴명</TableCell>
-                                        <TableCell>금액</TableCell>
-                                        <TableCell align={"center"}>추가</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows.map((row) => (
-                                        <TableRow key={row.name}>
-                                            <TableCell component="th" scope="row" onClick={() => order(row)}>
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell>{row.calories}</TableCell>
-                                            <TableCell align={"right"}>
-                                                <IconButton aria-label="add" className={classes.margin}
-                                                            onClick={() => addOrder(row)}>
-                                                    <AddCircleOutlineIcon/>
-                                                </IconButton>
-                                            </TableCell>
+            <Box component="span" m={1}     >
 
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel2bh-content"
-                        id="panel2bh-header"
-                    >
-                        <Typography className={classes.heading}>NON-COFFEE</Typography>
-                        <Typography className={classes.secondaryHeading}>
-                            You are currently not an owner
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-                            diam eros in elit. Pellentesque convallis laoreet laoreet.
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel3bh-content"
-                        id="panel3bh-header"
-                    >
-                        <Typography className={classes.heading}>ADE</Typography>
-                        <Typography className={classes.secondaryHeading}>
-                            Filtering has been entirely disabled for whole web server
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                            vitae egestas augue. Duis vel est augue.
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel4bh-content"
-                        id="panel4bh-header"
-                    >
-                        <Typography className={classes.heading}>TEA</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                            vitae egestas augue. Duis vel est augue.
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-
-                <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel5bh-content"
-                        id="panel5bh-header"
-                    >
-                        <Typography className={classes.heading}>계절음료</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                            vitae egestas augue. Duis vel est augue.
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel6bh-content"
-                        id="panel6bh-header"
-                    >
-                        <Typography className={classes.heading}>콜드브루커피(Cold Brew Coffee)</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                            vitae egestas augue. Duis vel est augue.
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-
-
-            </div>
-            {(hasOrder &&
-                <Box
-                    bgcolor="background.paper"
-                    color="text.primary"
-                    p={1}
-                    position="fixed"
-                    right={10}
-                    bottom={0}
-                    zIndex="tooltip"
+            </Box>
+            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
                 >
-                    <Button variant="contained" color="default" className={classes.mainbutton}
-                            onClick={clearOrder}>주문변경</Button>
-                    <Button variant="contained" color="secondary" className={classes.mainbutton}>주문하기</Button>
-                </Box>
+                    <Typography className={classes.heading}>ESPRESSO</Typography>
+                    <Typography className={classes.secondaryHeading}>메뉴명 선택 시 즉시 주문</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>메뉴명</TableCell>
+                                    <TableCell>금액</TableCell>
+                                    <TableCell align={"center"}>추가</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map((row) => (
+                                    <TableRow key={row.name}>
+                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell>{row.calories}</TableCell>
+                                        <TableCell align={"right"}>
+                                            <IconButton aria-label="add" className={classes.margin}
+                                              onClick={()=>addOrder(row)}>
+                                                <AddCircleOutlineIcon   />
+                                            </IconButton>
+                                         </TableCell>
+
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2bh-content"
+                    id="panel2bh-header"
+                >
+                    <Typography className={classes.heading}>NON-COFFEE</Typography>
+                    <Typography className={classes.secondaryHeading}>
+                        You are currently not an owner
+                    </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
+                        diam eros in elit. Pellentesque convallis laoreet laoreet.
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3bh-content"
+                    id="panel3bh-header"
+                >
+                    <Typography className={classes.heading}>ADE</Typography>
+                    <Typography className={classes.secondaryHeading}>
+                        Filtering has been entirely disabled for whole web server
+                    </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
+                        vitae egestas augue. Duis vel est augue.
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                >
+                    <Typography className={classes.heading}>TEA</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
+                        vitae egestas augue. Duis vel est augue.
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+
+            <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel5bh-content"
+                    id="panel5bh-header"
+                >
+                    <Typography className={classes.heading}>계절음료</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
+                        vitae egestas augue. Duis vel est augue.
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel6bh-content"
+                    id="panel6bh-header"
+                >
+                    <Typography className={classes.heading}>콜드브루커피(Cold Brew Coffee)</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
+                        vitae egestas augue. Duis vel est augue.
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+
+
+        </div>
+            {( hasOrder &&
+            <Box
+                bgcolor="background.paper"
+                color="text.primary"
+                p={1}
+                position="fixed"
+                right={10}
+                bottom={0}
+                zIndex="tooltip"
+            >
+                <Button variant="contained" color="default" className={classes.mainbutton}>주문변경</Button>
+                <Button variant="contained" color="secondary" className={classes.mainbutton}>주문하기</Button>
+            </Box>
             )}
-        </>
+            </>
     );
 }

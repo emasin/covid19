@@ -68,20 +68,50 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function createData(fname,name, calories, fat, carbs, protein) {
-    return { fname,name, calories, fat, carbs, protein };
+function createData(category,fname,name, calories, fat, carbs, protein) {
+    return { category,fname,name, calories, fat, carbs, protein };
 }
 
-const rows = [
-    createData('아메리카노   Americano','Americano', 2.5, 6.0, 24, 4.0),
-    createData('까페라떼     Caffe Latte','CaffeLatte', 3.5, 9.0, 37, 4.3),
-    createData('바닐라라떼   Vanilla Latte','VanillaLatte', 4.0, 16.0, 24, 6.0),
-    createData('까페모카     Caffe Mocha','CaffeMocha', 4.0, 3.7, 67, 4.3),
-    createData('카라멜라떼   Caramel Latte','CaramelLatte', 4.0, 16.0, 49, 3.9),
-    createData('연유라떼     Dolce Latte','DolceLatte', 4.0, 16.0, 49, 3.9),
+const esp_rows = [
+    createData('ESP','아메리카노   Americano','Americano', 2.5, 6.0, 24, 4.0),
+    createData('ESP','까페라떼     Caffe Latte','CaffeLatte', 3.5, 9.0, 37, 4.3),
+    createData('ESP','바닐라라떼   Vanilla Latte','VanillaLatte', 4.0, 16.0, 24, 6.0),
+    createData('ESP','까페모카     Caffe Mocha','CaffeMocha', 4.0, 3.7, 67, 4.3),
+    createData('ESP','카라멜라떼   Caramel Latte','CaramelLatte', 4.0, 16.0, 49, 3.9),
+    createData('ESP','연유라떼     Dolce Latte','DolceLatte', 4.0, 16.0, 49, 3.9),
 ];
 
 
+const ncf_rows = [
+    createData('NCF','초코라떼     Chocolate Latte','ChocolateLatte', 4.0, 6.0, 24, 4.0),
+    createData('NCF','그린티라떼   Greentea Latte','GreenteaLatte', 4.0, 9.0, 37, 4.3),
+    createData('NCF','밀크티       Thai Milk Tea','Thai Milk Tea', 4.5, 16.0, 24, 6.0),
+    createData('NCF','딸기라떼     Strawberry Latte','Strawberry Latte', 4.5, 3.7, 67, 4.3),
+
+];
+
+
+const ade_rows = [
+    createData('ADE','자몽에이드   Grapefruit Ade','Grapefruit Ade', 4.0, 6.0, 24, 4.0),
+    createData('ADE','레몬에이드   Lemonade','Lemon Ade', 4.0, 9.0, 37, 4.3),
+    createData('ADE','오미자에이드 Schisandra Ade','오미자에이드 Ade', 4.5, 16.0, 24, 6.0),
+    createData('ADE','오미자*레몬  Mixed Ade','오미자*레몬 Ade', 4.5, 3.7, 67, 4.3),
+
+];
+
+
+const tea_rows = [
+    createData('TEA','오설록 녹차  Green Tea','오설록 녹차', 4.0, 6.0, 24, 4.0),
+    createData('TEA','오설록 제주영귤 Jeju Tangerine Tea','오설록 제주영귤', 4.0, 9.0, 37, 4.3),
+    createData('TEA','오설록 달빛걷기 Korean Pear Tea','오설록 달빛걷기', 4.0, 16.0, 24, 6.0),
+    createData('TEA','페퍼민트     Peppermint','Peppermint', 4.0, 3.7, 67, 4.3),
+    createData('TEA','카모마일     Chamomile','Chamomile', 4.0, 6.0, 24, 4.0),
+    createData('TEA','자몽         Grapefruit Tea','자몽 Tea', 4.5, 9.0, 37, 4.3),
+    createData('TEA','레몬         Lemon Tea','레몬 Tea', 4.5, 16.0, 24, 6.0),
+    createData('TEA','오미자       Schisandra Tea','오미자', 4.5, 3.7, 67, 4.3),
+    createData('TEA','복숭아 아이스티   Iced Peach tea','Iced Peach tea', 2.5, 3.7, 67, 4.3),
+    createData('TEA','레몬 아이스티     Iced Lemon tea','Iced Lemon tea', 2.5, 3.7, 67, 4.3),
+];
 
 
 export default function ControlledAccordions() {
@@ -109,24 +139,45 @@ export default function ControlledAccordions() {
     }
 
     const clearOrder=()=>setOrders([])
+    const getCateImage=(category)=>{
+        /*
+         coffee
+                                     noncoffee
+                                     tea
+                                     ade
+                                     coldbrew https://static.thenounproject.com/png/1898526-200.png
+                                     juice
+         */
+        switch (category) {
+            case  'ESP' : {
+                /**
+                 * ESPRESSO
+                 */
+                return 'https://static.thenounproject.com/png/3413795-200.png';
+            }
+            case  'NCF' : {
+                /**
+                 * NON COFFEE
+                 */
+                return 'https://static.thenounproject.com/png/138917-200.png';
 
+            }
+            case  'ADE' : {
+                return 'https://static.thenounproject.com/png/429287-200.png';
+            }
+            case  'TEA' : {
+                return 'https://static.thenounproject.com/png/2892478-200.png';
+            }
+            default : {
+                return 'https://static.thenounproject.com/png/3511507-200.png';
+            }
+        }
+    }
     useEffect(() => {
         console.log("orders.length",orders.length);
         if(orders.length < 1)
             setHasOrder(false);
-       /** store.addNotification({
-            title: "Wonderful!",
-            message: "teodosii@react-notifications-component",
-            type: "success",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeIn"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: true
-            }
-        });**/
+
     }, [orders]);
 
     useEffect(() => {
@@ -150,26 +201,21 @@ export default function ControlledAccordions() {
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12}>
                     <Grid container justify="center" spacing={spacing}>
-                        {[0, 1, 2,3,4,5,6,7].map((value) => (
-                            <Grid key={value} item>
+                        {orders.map((o, i) => (
+                            <Grid key={i} item>
                                 <Card className={classes.root}>
                                     {/**
-                                     coffee https://static.thenounproject.com/png/3413795-200.png
-                                     noncoffee https://static.thenounproject.com/png/138917-200.png
-                                     tea https://static.thenounproject.com/png/2892478-200.png
-                                     ade https://static.thenounproject.com/png/429287-200.png
-                                     coldbrew https://static.thenounproject.com/png/1898526-200.png
-                                     juice https://static.thenounproject.com/png/3511507-200.png
+
                                      */}
                                     <CardMedia
                                         className={classes.media}
 
-                                        image="https://static.thenounproject.com/png/3413795-200.png"
+                                        image={getCateImage(o.category)}
                                         title="Contemplative Reptile"
                                     />
                                     <CardContent>
                                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                            CaffeAmeriacno
+                                            {o.name}
                                         </Typography>
 
                                     </CardContent>
@@ -192,7 +238,7 @@ export default function ControlledAccordions() {
                     id="panel1bh-header"
                 >
                     <Typography className={classes.heading}>ESPRESSO</Typography>
-                    <Typography className={classes.secondaryHeading}>메뉴명 선택 시 즉시 주문</Typography>
+                    <Typography className={classes.secondaryHeading}></Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <TableContainer component={Paper}>
@@ -205,7 +251,7 @@ export default function ControlledAccordions() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row) => (
+                                {esp_rows.map((row) => (
                                     <TableRow key={row.name}>
                                         <TableCell component="th" scope="row" onClick={()=>order(row)}>
                                             {row.name}
@@ -233,14 +279,38 @@ export default function ControlledAccordions() {
                 >
                     <Typography className={classes.heading}>NON-COFFEE</Typography>
                     <Typography className={classes.secondaryHeading}>
-                        You are currently not an owner
+
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-                        diam eros in elit. Pellentesque convallis laoreet laoreet.
-                    </Typography>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>메뉴명</TableCell>
+                                    <TableCell>금액</TableCell>
+                                    <TableCell align={"center"}>추가</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {ncf_rows.map((row) => (
+                                    <TableRow key={row.name}>
+                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell>{row.calories}</TableCell>
+                                        <TableCell align={"right"}>
+                                            <IconButton aria-label="add" className={classes.margin}
+                                                        onClick={()=>addOrder(row)}>
+                                                <AddCircleOutlineIcon   />
+                                            </IconButton>
+                                        </TableCell>
+
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -251,14 +321,38 @@ export default function ControlledAccordions() {
                 >
                     <Typography className={classes.heading}>ADE</Typography>
                     <Typography className={classes.secondaryHeading}>
-                        Filtering has been entirely disabled for whole web server
+
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                        vitae egestas augue. Duis vel est augue.
-                    </Typography>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>메뉴명</TableCell>
+                                    <TableCell>금액</TableCell>
+                                    <TableCell align={"center"}>추가</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {ade_rows.map((row) => (
+                                    <TableRow key={row.name}>
+                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell>{row.calories}</TableCell>
+                                        <TableCell align={"right"}>
+                                            <IconButton aria-label="add" className={classes.margin}
+                                                        onClick={()=>addOrder(row)}>
+                                                <AddCircleOutlineIcon   />
+                                            </IconButton>
+                                        </TableCell>
+
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
@@ -270,10 +364,34 @@ export default function ControlledAccordions() {
                     <Typography className={classes.heading}>TEA</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                        vitae egestas augue. Duis vel est augue.
-                    </Typography>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>메뉴명</TableCell>
+                                    <TableCell>금액</TableCell>
+                                    <TableCell align={"center"}>추가</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {tea_rows.map((row) => (
+                                    <TableRow key={row.name}>
+                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell>{row.calories}</TableCell>
+                                        <TableCell align={"right"}>
+                                            <IconButton aria-label="add" className={classes.margin}
+                                                        onClick={()=>addOrder(row)}>
+                                                <AddCircleOutlineIcon   />
+                                            </IconButton>
+                                        </TableCell>
+
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
 
@@ -286,10 +404,34 @@ export default function ControlledAccordions() {
                     <Typography className={classes.heading}>계절음료</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                        vitae egestas augue. Duis vel est augue.
-                    </Typography>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>메뉴명</TableCell>
+                                    <TableCell>금액</TableCell>
+                                    <TableCell align={"center"}>추가</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {ncf_rows.map((row) => (
+                                    <TableRow key={row.name}>
+                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell>{row.calories}</TableCell>
+                                        <TableCell align={"right"}>
+                                            <IconButton aria-label="add" className={classes.margin}
+                                                        onClick={()=>addOrder(row)}>
+                                                <AddCircleOutlineIcon   />
+                                            </IconButton>
+                                        </TableCell>
+
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
@@ -301,10 +443,34 @@ export default function ControlledAccordions() {
                     <Typography className={classes.heading}>콜드브루커피(Cold Brew Coffee)</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                        vitae egestas augue. Duis vel est augue.
-                    </Typography>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>메뉴명</TableCell>
+                                    <TableCell>금액</TableCell>
+                                    <TableCell align={"center"}>추가</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {ncf_rows.map((row) => (
+                                    <TableRow key={row.name}>
+                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell>{row.calories}</TableCell>
+                                        <TableCell align={"right"}>
+                                            <IconButton aria-label="add" className={classes.margin}
+                                                        onClick={()=>addOrder(row)}>
+                                                <AddCircleOutlineIcon   />
+                                            </IconButton>
+                                        </TableCell>
+
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
 

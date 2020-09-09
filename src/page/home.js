@@ -30,11 +30,12 @@ import Icon from '@material-ui/core/Icon';
 import { green } from '@material-ui/core/colors';
 
 
-import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import {useDispatch} from "react-redux";
+import { orderAction} from "../actions/index"
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -125,7 +126,7 @@ export default function ControlledAccordions() {
     };
 
     const [spacing, setSpacing] = React.useState(2);
-
+    const dispatch = useDispatch();
     const order=(item)=>{
 
 
@@ -135,7 +136,12 @@ export default function ControlledAccordions() {
     const addOrder=(item)=>{
         setHasOrder(true);
         setOrders([...orders,item]);
-        console.log("add",orders);
+
+    }
+
+    const addItem=(item)=>{
+        setHasOrder(true);
+        setOrders([...orders,item]);
     }
 
     const clearOrder=()=>setOrders([])
@@ -174,9 +180,11 @@ export default function ControlledAccordions() {
         }
     }
     useEffect(() => {
-        console.log("orders.length",orders.length);
+
         if(orders.length < 1)
             setHasOrder(false);
+
+        dispatch(orderAction(orders));
 
     }, [orders]);
 

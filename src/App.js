@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 import {Link, Route } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -88,6 +89,9 @@ export default function PrimarySearchAppBar(history) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const orderList = useSelector(state => state.order.list, []) || [];
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -189,7 +193,7 @@ export default function PrimarySearchAppBar(history) {
             <Link to={'/orders'}>x
               <IconButton aria-label="show 17 new notifications" color="inherit"
                          >
-                <Badge badgeContent={17} color="secondary">
+                <Badge badgeContent={orderList.length} color="secondary">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>

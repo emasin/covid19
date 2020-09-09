@@ -1,22 +1,33 @@
 import axios from "axios";
 
 
-export  function loadTutor(){
+export  function orderAction(list){
+
     return(dispatch)=>{
-        return axios.get("https://app.devkids.co.kr/data/tutor.json").then((response)=>{
-            dispatch(loadTutorAction(response.data));
-        })
+        return dispatch(fetchOrderAction(list));
+        /**return axios.get("https://app.devkids.co.kr/data/tutor.json").then((response)=>{
+            dispatch(fetchOrderAction(response.data));
+        })**/
     }
 }
 
-
-
-export function loadTutorAction(data){
+export function fetchOrderAction(data){
     return{
-        type:"LOAD_TUTOR_ACTION",
+        type:"ADD_ORDER_ACTION",
         payload:data
     }
 }
+
+export  function addItemAction(list){
+
+    return(dispatch)=>{
+        return dispatch(fetchOrderAction(list));
+        /**return axios.get("https://app.devkids.co.kr/data/tutor.json").then((response)=>{
+            dispatch(fetchOrderAction(response.data));
+        })**/
+    }
+}
+
 
 
 

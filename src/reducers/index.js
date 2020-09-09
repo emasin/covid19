@@ -1,13 +1,13 @@
 
 import { combineReducers } from 'redux';
 
-import TopicsReducer from './reducerTopics';
+import OrderReducer from './reducerOrder';
 
 
 
 const rootReducer = combineReducers({
 
-    topics : TopicsReducer
+    order : OrderReducer
 
 });
 

@@ -34,7 +34,7 @@ import 'react-notifications-component/dist/theme.css'
 import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import { orderAction} from "../actions/index"
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -117,8 +117,9 @@ const tea_rows = [
 
 export default function ControlledAccordions() {
     const classes = useStyles();
-
+    const listData = useSelector(state => state.order, []) || [];
     const [orders, setOrders] = useState([]);
+    const [ord, setOrd] = useState({cost:0,items:[]});
     const [expanded, setExpanded] = React.useState(false);
     const [hasOrder, setHasOrder] = useState(false);
     const handleChange = (panel) => (event, isExpanded) => {
@@ -127,15 +128,24 @@ export default function ControlledAccordions() {
 
     const [spacing, setSpacing] = React.useState(2);
     const dispatch = useDispatch();
-    const order=(item)=>{
 
+    useEffect(()=>{
+        console.log("change store order ",listData);
+    },[listData]);
 
-        addOrder(item);
-    }
 
     const addOrder=(item)=>{
         setHasOrder(true);
-        setOrders([...orders,item]);
+
+        ord.items.push(item);
+        ord.cost =ord.items.length;
+
+
+        const list = listData.list ? [...listData.list] : [] ;
+        list.push(ord);
+        setOrd(ord);
+        dispatch(orderAction(list));
+
 
     }
 
@@ -179,14 +189,7 @@ export default function ControlledAccordions() {
             }
         }
     }
-    useEffect(() => {
-
-        if(orders.length < 1)
-            setHasOrder(false);
-
-        dispatch(orderAction(orders));
-
-    }, [orders]);
+     
 
     useEffect(() => {
         const node = loadCSS(
@@ -209,7 +212,7 @@ export default function ControlledAccordions() {
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12}>
                     <Grid container justify="center" spacing={spacing}>
-                        {orders.map((o, i) => (
+                        {ord.items.map((o, i) => (
                             <Grid key={i} item>
                                 <Card className={classes.root}>
                                     {/**
@@ -261,7 +264,7 @@ export default function ControlledAccordions() {
                             <TableBody>
                                 {esp_rows.map((row) => (
                                     <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                        <TableCell component="th" scope="row" onClick={()=>addOrder(row)}>
                                             {row.name}
                                         </TableCell>
                                         <TableCell>{row.calories}</TableCell>
@@ -303,7 +306,7 @@ export default function ControlledAccordions() {
                             <TableBody>
                                 {ncf_rows.map((row) => (
                                     <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                        <TableCell component="th" scope="row" onClick={()=>addOrder(row)}>
                                             {row.name}
                                         </TableCell>
                                         <TableCell>{row.calories}</TableCell>
@@ -345,7 +348,7 @@ export default function ControlledAccordions() {
                             <TableBody>
                                 {ade_rows.map((row) => (
                                     <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                        <TableCell component="th" scope="row" onClick={()=>addOrder(row)}>
                                             {row.name}
                                         </TableCell>
                                         <TableCell>{row.calories}</TableCell>
@@ -384,7 +387,7 @@ export default function ControlledAccordions() {
                             <TableBody>
                                 {tea_rows.map((row) => (
                                     <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                        <TableCell component="th" scope="row" onClick={()=>addOrder(row)}>
                                             {row.name}
                                         </TableCell>
                                         <TableCell>{row.calories}</TableCell>
@@ -424,7 +427,7 @@ export default function ControlledAccordions() {
                             <TableBody>
                                 {ncf_rows.map((row) => (
                                     <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                        <TableCell component="th" scope="row" onClick={()=>addOrder(row)}>
                                             {row.name}
                                         </TableCell>
                                         <TableCell>{row.calories}</TableCell>
@@ -463,7 +466,7 @@ export default function ControlledAccordions() {
                             <TableBody>
                                 {ncf_rows.map((row) => (
                                     <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row" onClick={()=>order(row)}>
+                                        <TableCell component="th" scope="row" onClick={()=>addOrder(row)}>
                                             {row.name}
                                         </TableCell>
                                         <TableCell>{row.calories}</TableCell>

@@ -1,3 +1,4 @@
+import {selectedDayTextColor} from "react-native-calendars/src/style";
 
 export default function (state = [], action) {
 
@@ -5,7 +6,7 @@ export default function (state = [], action) {
 
         return {
             ...state,
-            list: action.payload
+            list:action.payload
         }
     }else  if(action.type==="ADD_ITEM_ACTION") {
 

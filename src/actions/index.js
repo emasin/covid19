@@ -1,10 +1,11 @@
 import axios from "axios";
 
 
-export  function orderAction(list){
+export  function orderAction(olist){
 
     return(dispatch)=>{
-        return dispatch(fetchOrderAction(list));
+
+        return dispatch(fetchOrderAction(olist));
         /**return axios.get("https://app.devkids.co.kr/data/tutor.json").then((response)=>{
             dispatch(fetchOrderAction(response.data));
         })**/

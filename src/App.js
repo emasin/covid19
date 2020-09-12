@@ -94,9 +94,14 @@ export default function PrimarySearchAppBar(history) {
   const orderList = useSelector(state => state.order, []) || [];
   const [orderCount,setOrderCount] = React.useState(0);
   useEffect(()=>{
-    console.log(orderList)
-    if(orderList.list)
-        setOrderCount(orderList.list.length );
+
+
+    const orders = orderList.list && orderList.list.filter((ord)=>{
+      if(ord.status !==0)
+        return ord;
+    });
+
+    setOrderCount(orders && orders.length );
 
   },[orderList])
 

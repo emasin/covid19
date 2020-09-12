@@ -119,7 +119,7 @@ export default function ControlledAccordions() {
     const classes = useStyles();
     const listData = useSelector(state => state.order, []) || [];
     const [orders, setOrders] = useState([]);
-    const [ord, setOrd] = useState({cost:0,items:[]});
+    const [ord, setOrd] = useState({cost:0,items:[],status:0});
     const [expanded, setExpanded] = React.useState(false);
     const [hasOrder, setHasOrder] = useState(false);
     const handleChange = (panel) => (event, isExpanded) => {
@@ -137,24 +137,75 @@ export default function ControlledAccordions() {
     const addOrder=(item)=>{
         setHasOrder(true);
 
-        ord.items.push(item);
-        ord.cost =ord.items.length;
-
-
         const list = listData.list ? [...listData.list] : [] ;
-        list.push(ord);
+
+        const orderList = list.filter((o,i)=>{
+
+            if( o[0].status === 0 ) {
+                o[0].items.push(item);
+                o[0].cost = o[0].items.length;
+                return o;
+            }
+
+        });
+
+        if (orderList.length === 0) {
+            ord.items.push(item);
+            ord.cost =ord.items.length;
+            ord.status = 0;
+            list.push([{cost:ord.items.length,items : ord.items,status:ord.status}]);
+        }
+
+       // const l = list.concat([ord]);
+
         setOrd(ord);
         dispatch(orderAction(list));
 
 
     }
 
-    const addItem=(item)=>{
-        setHasOrder(true);
-        setOrders([...orders,item]);
+    const initOrder = ()=>{
+        ord.status=0;
+        ord.cost=0;
+        ord.items=[];
+        setOrd(ord);
+        setHasOrder(false);
+    }
+
+    const modifyOrder=()=>{
+        compltOrder();
+    }
+    const compltOrder=( )=>{
+
+        const list = listData.list ? [...listData.list] : [] ;
+        const orderList = list.filter((o,i)=>{
+            if( o[0].status === 0 ) {
+                o[0].status = 1;
+                return o;
+            }
+
+        });
+        dispatch(orderAction([...list]));
+        initOrder();
+
+
     }
 
     const clearOrder=()=>setOrders([])
+
+
+    useEffect(() => {
+        const node = loadCSS(
+            'https://use.fontawesome.com/releases/v5.12.0/css/all.css',
+            document.querySelector('#font-awesome-css'),
+        );
+
+        return () => {
+            node.parentNode.removeChild(node);
+        };
+    }, []);
+
+
     const getCateImage=(category)=>{
         /*
          coffee
@@ -190,17 +241,6 @@ export default function ControlledAccordions() {
         }
     }
      
-
-    useEffect(() => {
-        const node = loadCSS(
-            'https://use.fontawesome.com/releases/v5.12.0/css/all.css',
-            document.querySelector('#font-awesome-css'),
-        );
-
-        return () => {
-            node.parentNode.removeChild(node);
-        };
-    }, []);
 
     return (
         <>
@@ -497,8 +537,8 @@ export default function ControlledAccordions() {
                 bottom={0}
                 zIndex="tooltip"
             >
-                <Button variant="contained" color="default" className={classes.mainbutton}>주문변경</Button>
-                <Button variant="contained" color="secondary" className={classes.mainbutton}>주문하기</Button>
+                <Button variant="contained" color="default" className={classes.mainbutton} onClick={modifyOrder}>주문변경</Button>
+                <Button variant="contained" color="secondary" className={classes.mainbutton} onClick={compltOrder}>주문하기</Button>
             </Box>
             )}
             </>

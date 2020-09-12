@@ -9,7 +9,7 @@ class HomeContainer extends React.Component {
 
     render() {
         const {data} = this.props;
-        console.log(data);
+
         return (
             <>
                 <Home data={data}></Home>

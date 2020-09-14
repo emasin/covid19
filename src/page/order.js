@@ -108,7 +108,7 @@ export default function HorizontalLinearStepper() {
         <div className={classes.root}>
             {order.map((o, i) => (
                 <>
-            <Typography className={classes.instructions}>A-79 2020.08.20 09:30:04</Typography>
+            <Typography className={classes.instructions}>A-79 {o[0].odt}</Typography>
             <Stepper activeStep={o[0].status - 1}>
                 {steps.map((label, index) => {
                     const stepProps = {};

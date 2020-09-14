@@ -124,7 +124,7 @@ export default function ControlledAccordions() {
     const classes = useStyles();
     const listData = useSelector(state => state.order, []) || [];
     const [orders, setOrders] = useState([]);
-    const [ord, setOrd] = useState({cost:0,items:[],status:0});
+    const [ord, setOrd] = useState({cost:0,items:[],status:0,odt:null});
     const [expanded, setExpanded] = React.useState(false);
     const [hasOrder, setHasOrder] = useState(false);
     const handleChange = (panel) => (event, isExpanded) => {
@@ -157,11 +157,12 @@ export default function ControlledAccordions() {
         if (orderList.length === 0) {
             const dateToFormat = new Date();
 
-            console.log( moment().format('YYYYMMDDhhmmss'));
+            ord.odt = moment().format('YYYYMMDDhhmmss');
+            debugger
             ord.items.push(item);
             ord.cost =ord.items.length;
             ord.status = 0;
-            list.push([{cost:ord.items.length,items : ord.items,status:ord.status}]);
+            list.push([{cost:ord.items.length,items : ord.items,status:ord.status,odt:ord.odt}]);
         }
 
        // const l = list.concat([ord]);

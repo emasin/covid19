@@ -97,7 +97,7 @@ export default function PrimarySearchAppBar(history) {
 
 
     const orders = orderList.list && orderList.list.filter((ord)=>{
-      if(ord.status !==0)
+      if(ord[0].status !==0)
         return ord;
     });
 

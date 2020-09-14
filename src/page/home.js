@@ -36,6 +36,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import {useDispatch,useSelector} from "react-redux";
 import { orderAction} from "../actions/index"
+
+import moment from 'moment';
+import "moment/locale/ko";
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -150,6 +155,9 @@ export default function ControlledAccordions() {
         });
 
         if (orderList.length === 0) {
+            const dateToFormat = new Date();
+
+            console.log( moment().format('YYYYMMDDhhmmss'));
             ord.items.push(item);
             ord.cost =ord.items.length;
             ord.status = 0;
@@ -240,7 +248,7 @@ export default function ControlledAccordions() {
             }
         }
     }
-     
+
 
     return (
         <>

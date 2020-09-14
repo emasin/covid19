@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -6,6 +6,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Box from "@material-ui/core/Box";
+import {useSelector} from "react-redux";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginRight: theme.spacing(1),
+        textDecoration: 'underline'
     },
     instructions: {
         marginTop: theme.spacing(1),
@@ -42,6 +45,22 @@ export default function HorizontalLinearStepper() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
     const steps = getSteps();
+
+
+    const orderList = useSelector(state => state.order, []) || [];
+    const [order,setOrder] = React.useState([]);
+    useEffect(()=>{
+
+
+        const orders = orderList.list && orderList.list.filter((ord)=>{
+            if(ord.status !==0)
+                return ord;
+        });
+        if(orders)
+            setOrder(orders );
+
+    },[orderList])
+
 
     const isStepOptional = (step) => {
         return step === 1;
@@ -87,8 +106,10 @@ export default function HorizontalLinearStepper() {
 
     return (
         <div className={classes.root}>
+            {order.map((o, i) => (
+                <>
             <Typography className={classes.instructions}>A-79 2020.08.20 09:30:04</Typography>
-            <Stepper activeStep={activeStep}>
+            <Stepper activeStep={o[0].status - 1}>
                 {steps.map((label, index) => {
                     const stepProps = {};
                     const labelProps = {};
@@ -99,115 +120,31 @@ export default function HorizontalLinearStepper() {
                         stepProps.completed = false;
                     }
                     return (
+
                         <Step key={label} {...stepProps}>
                             <StepLabel {...labelProps}>{label}</StepLabel>
                         </Step>
+
+
                     );
                 })}
             </Stepper>
+            {( o[0].status === 1 && (
+                <>
+                <Typography className={classes.instructions}>*주문취소 가능   <Button onClick={handleReset} className={classes.button}>
+                    취소하기
+                </Button></Typography>
 
-            <div>
-                {activeStep === steps.length ? (
-                    <div>
-                        <Typography className={classes.instructions}>
-                            All steps completed - you&apos;re finished
-                        </Typography>
-                        <Button onClick={handleReset} className={classes.button}>
-                            Reset
-                        </Button>
-                    </div>
-                ) : (
-                    <div>
-                        <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                        <div>
-                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                Back
-                            </Button>
-                            {isStepOptional(activeStep) && (
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleSkip}
-                                    className={classes.button}
-                                >
-                                    Skip
-                                </Button>
-                            )}
+                </>
+            ))}
 
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleNext}
-                                className={classes.button}
-                            >
-                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                            </Button>
-                        </div>
-                    </div>
-                )}
-            </div>
+
 
             <Box component="span" m={1}>
 
             </Box>
-            <Typography className={classes.instructions}>A-75 2020.08.20 08:30:04</Typography>
-            <Stepper activeStep={activeStep}>
-                {steps.map((label, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
-
-                    if (isStepSkipped(index)) {
-                        stepProps.completed = false;
-                    }
-                    return (
-                        <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
-                        </Step>
-                    );
-                })}
-            </Stepper>
-
-            <div>
-                {activeStep === steps.length ? (
-                    <div>
-                        <Typography className={classes.instructions}>
-                            All steps completed - you&apos;re finished
-                        </Typography>
-                        <Button onClick={handleReset} className={classes.button}>
-                            Reset
-                        </Button>
-                    </div>
-                ) : (
-                    <div>
-                        <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                        <div>
-                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                Back
-                            </Button>
-                            {isStepOptional(activeStep) && (
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleSkip}
-                                    className={classes.button}
-                                >
-                                    Skip
-                                </Button>
-                            )}
-
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleNext}
-                                className={classes.button}
-                            >
-                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                            </Button>
-                        </div>
-                    </div>
-                )}
-            </div>
-
+                </>
+                ))}
         </div>
     );
 }

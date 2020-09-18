@@ -12,6 +12,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
+import Button from '@material-ui/core/Button';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
@@ -20,7 +21,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import {Container} from "@material-ui/core";
 import HomeContainer from "./container/home-container";
 import OrderContainer from "./container/order-container";
-
+import SignIn from "./page/signin";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -92,6 +93,7 @@ export default function PrimarySearchAppBar(history) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const orderList = useSelector(state => state.order, []) || [];
+  const [signed,setSigned] = React.useState(false);
   const [orderCount,setOrderCount] = React.useState(0);
   useEffect(()=>{
 
@@ -202,7 +204,7 @@ export default function PrimarySearchAppBar(history) {
             </Link>
             <div className={classes.grow} />
             <div  >
-            <Link to={'/orders'}>x
+            <Link to={'/orders'}>
               <IconButton aria-label="show 17 new notifications" color="inherit"
                          >
                 <Badge badgeContent={orderCount} color="secondary">
@@ -210,6 +212,7 @@ export default function PrimarySearchAppBar(history) {
                 </Badge>
               </IconButton>
             </Link>
+              {(signed && (
               <IconButton
                   edge="end"
                   aria-label="account of current user"
@@ -219,7 +222,14 @@ export default function PrimarySearchAppBar(history) {
                   color="inherit"
               >
                 <AccountCircle />
-              </IconButton>
+              </IconButton> ))}
+
+              {(!signed && (
+                  <Link to={'/signin'}>
+                    <Button variant="contained" color="secondary">Log in</Button>
+                  </Link> ))}
+
+
             </div>
 
           </Toolbar>
@@ -231,7 +241,7 @@ export default function PrimarySearchAppBar(history) {
           <Route  exact path="/" component={HomeContainer} />
           <Route path="/orders" component={OrderContainer} />
 
-
+          <Route path="/signin" component={SignIn} />
         </Container>
 
       </div>

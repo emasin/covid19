@@ -57,8 +57,30 @@ export default function SignIn() {
     const setSignInStatus=()=> {
         setHaveAccount(true);
     }
-    useEffect(()=>{},[])
 
+
+
+
+    const [userInfo, setUserInfo] = useState({
+        user_id: '',
+        hp: '',
+        pwd : '',
+        nickname : '',
+        sid : '1'
+    });
+
+    useEffect(()=>{
+        console.log("userInfo",userInfo);
+    },[userInfo])
+
+
+    const handleChangeInput = (e) => {
+        const { name, value } = e.target;
+        setUserInfo({...userInfo,[name]:value});
+
+
+
+    }
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -83,6 +105,7 @@ export default function SignIn() {
                             name="nickname"
                             autoComplete="nickname"
                             autoFocus
+                            onChange={handleChangeInput}
 
                         />
                     )}
@@ -98,6 +121,7 @@ export default function SignIn() {
                         name="hp"
                         autoComplete="hp"
                         autoFocus
+                        onChange={handleChangeInput}
 
                     />
                     <TextField
@@ -105,12 +129,13 @@ export default function SignIn() {
                         margin="normal"
                         required
                         fullWidth
-                        name="password"
+                        name="pwd"
                         label="비밀번호"
                         placeholder="숫자 영문자 혼합 4자리 이상"
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={handleChangeInput}
                     />
 
                     {(haveAccount &&
@@ -127,7 +152,10 @@ export default function SignIn() {
                         color="primary"
                         className={classes.submit}
                     >
-                        Sign In
+                        {haveAccount ? "Sign In" : "Sign Up"
+                        }
+
+
                     </Button>
                     <Grid container>
                         <Grid item xs>

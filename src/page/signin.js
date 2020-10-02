@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
 import {loginAction} from "../actions";
+import CustomizedDialogs from "../utils/CustomizedDialogs";
 
 function Copyright() {
     return (
@@ -52,6 +53,14 @@ export default function SignIn() {
     const classes = useStyles();
 
     const [haveAccount,setHaveAccount] = useState(true);
+    const [show,setShow] = useState(false);
+    const [dialogInfo,setDialogInfo] = useState({
+        show:false,
+        title:'',
+        content:'',
+        handleAfterClose:()=>{},
+        type:'info'
+    })
     const setSingUpStatus=()=> {
         setHaveAccount(false);
     }
@@ -75,14 +84,30 @@ export default function SignIn() {
                     }
                 }).then((response) => {
                 console.log(response.data);
-                debugger
-                setHaveAccount(true);
+
+                setDialogInfo({
+                    show:true,
+                    title: '회원가입',
+                    content: '회원가입 성공 , 로그인 페이지로 이동 합니다.',
+                    handleAfterClose:gotoSignin
+                })
+
+
             }).catch(error => {
-                debugger
-                console.log(error.message);
-                throw(error);
+
+
+                setDialogInfo({
+                    show:true,
+                    title: '회원가입 실패',
+                    content: error.message,
+                    handleAfterClose:()=>{},
+                    type:'error'
+                })
+
+
+              //  throw(error);
             });
-        
+
 
         return;
     }
@@ -104,9 +129,10 @@ export default function SignIn() {
     const handleChangeInput = (e) => {
         const { name, value } = e.target;
         setUserInfo({...userInfo,[name]:value});
+    }
 
-
-
+    const gotoSignin =() => {
+        setHaveAccount(true)
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -185,6 +211,19 @@ export default function SignIn() {
 
 
                     </Button>
+
+
+                    {   (
+
+                        <CustomizedDialogs open={dialogInfo.show}
+                                           title={dialogInfo.title}
+                                           content={dialogInfo.content}
+                                           handleAfterClose={dialogInfo.handleAfterClose}
+                                           type={dialogInfo.type}
+                        >
+                        </CustomizedDialogs>
+                    )}
+
                     <Grid container>
                         <Grid item xs>
                             {(haveAccount && (

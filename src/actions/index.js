@@ -92,6 +92,32 @@ export function loadTopic1Action(data){
 
 
 
+
+export  function signup(payload){
+    return(dispatch)=>{
+        //usr-9cfe92cd
+        //return dispatch(loginAction(true));
+        console.log(payload);
+        return axios.post("http://localhost:5001/fbweb-31a5f/us-central1/api/user/add",payload).then((response)=>{
+            console.log(response.data);
+            dispatch(loginAction(response.data.token));
+        }).catch(error => {
+            console.log(error.message);
+            throw(error);
+        });
+
+    }
+}
+
+
+export function signupAction(data){
+    return{
+        type:"LOGIN",
+        isLogin:data
+    }
+}
+
+
 export  function login(payload){
     return(dispatch)=>{
         //usr-9cfe92cd

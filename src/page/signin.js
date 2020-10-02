@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from "axios";
+import {loginAction} from "../actions";
 
 function Copyright() {
     return (
@@ -59,6 +61,31 @@ export default function SignIn() {
     }
 
 
+    const signin=()=>{
+        debugger
+    }
+
+    const signup=()=>{
+
+
+            axios.post("http://localhost:5001/fbweb-31a5f/us-central1/api/user/add", userInfo,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }).then((response) => {
+                console.log(response.data);
+                debugger
+                setHaveAccount(true);
+            }).catch(error => {
+                debugger
+                console.log(error.message);
+                throw(error);
+            });
+        
+
+        return;
+    }
 
 
     const [userInfo, setUserInfo] = useState({
@@ -146,10 +173,11 @@ export default function SignIn() {
                     )}
 
                     <Button
-                        type="submit"
+                        type="button"
                         fullWidth
                         variant="contained"
                         color="primary"
+                        onClick={haveAccount ? signin : signup }
                         className={classes.submit}
                     >
                         {haveAccount ? "Sign In" : "Sign Up"

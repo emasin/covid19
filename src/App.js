@@ -92,19 +92,20 @@ export default function PrimarySearchAppBar(history) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const userInfo = useSelector(state => state.user, []) || [];
   const orderList = useSelector(state => state.order, []) || [];
   const [signed,setSigned] = React.useState(false);
   const [orderCount,setOrderCount] = React.useState(0);
+
   useEffect(()=>{
-
-
+    console.log("userInfo",userInfo);
+  },[userInfo])
+  useEffect(()=>{
     const orders = orderList.list && orderList.list.filter((ord)=>{
       if(ord[0].status !==0)
         return ord;
     });
-
     setOrderCount(orders && orders.length );
-
   },[orderList])
 
   const isMenuOpen = Boolean(anchorEl);

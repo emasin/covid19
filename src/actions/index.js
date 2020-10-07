@@ -119,6 +119,7 @@ export function signupAction(data){
 
 
 export  function login(payload){
+
     return(dispatch)=>{
         //usr-9cfe92cd
         //return dispatch(loginAction(true));
@@ -140,7 +141,11 @@ export function loginAction(payload){
         //usr-9cfe92cd
         //return dispatch(loginAction(true));
         console.log(payload);
-        return axios.get("http://localhost:5001/fbweb-31a5f/us-central1/api/check",payload).then((response)=>{
+        return axios.get("http://localhost:5001/fbweb-31a5f/us-central1/api/check",{
+            headers: {
+                'x-access-token': payload,
+            }
+        }).then((response)=>{
             console.log(response.data);
             dispatch(getUserInfoAction(response.data));
         }).catch(error => {

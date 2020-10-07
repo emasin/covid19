@@ -9,7 +9,7 @@ import AuthReducer from './reducerAuth';
 const rootReducer = combineReducers({
 
     order : OrderReducer,
-    auth : AuthReducer
+    user : AuthReducer
 
 });
 

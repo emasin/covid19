@@ -13,8 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
-import {login, loginAction} from "../actions";
+import {login} from "../actions/index";
 import CustomizedDialogs from "../utils/CustomizedDialogs";
+import {useDispatch} from "react-redux";
 
 function Copyright() {
     return (
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const classes = useStyles();
-
+    const dispatch = useDispatch();
     const [haveAccount,setHaveAccount] = useState(true);
     const [show,setShow] = useState(false);
     const [dialogInfo,setDialogInfo] = useState({
@@ -71,8 +72,9 @@ export default function SignIn() {
 
 
     const signin=()=>{
+
         userInfo.login_id = userInfo.hp;
-        login(userInfo);
+        dispatch(login(userInfo));
     }
 
     const signup=()=>{

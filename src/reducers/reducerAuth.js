@@ -2,11 +2,12 @@
 export default function (state = [], action) {
 
     if(action.type==="LOGIN"){
+        debugger
       console.log(action.payload);
         return{
             ...state,
 
-            payload:action.payload
+            info:action.payload.info
         }
     }else{
         return{

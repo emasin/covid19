@@ -123,7 +123,7 @@ export  function login(payload){
         //usr-9cfe92cd
         //return dispatch(loginAction(true));
         console.log(payload);
-        return axios.post("https://us-central1-fbweb-31a5f.cloudfunctions.net/api/login",payload).then((response)=>{
+        return axios.post("http://localhost:5001/fbweb-31a5f/us-central1/api/login",payload).then((response)=>{
             console.log(response.data);
             dispatch(loginAction(response.data.token));
         }).catch(error => {
@@ -135,9 +135,26 @@ export  function login(payload){
 }
 
 
-export function loginAction(data){
+export function loginAction(payload){
+    return(dispatch)=>{
+        //usr-9cfe92cd
+        //return dispatch(loginAction(true));
+        console.log(payload);
+        return axios.get("http://localhost:5001/fbweb-31a5f/us-central1/api/check",payload).then((response)=>{
+            console.log(response.data);
+            dispatch(getUserInfoAction(response.data));
+        }).catch(error => {
+            console.log(error.message);
+            throw(error);
+        });
+
+    }
+}
+
+
+export function getUserInfoAction(data){
     return{
         type:"LOGIN",
-        isLogin:data
+        payload:data
     }
 }

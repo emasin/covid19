@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
-import {loginAction} from "../actions";
+import {login, loginAction} from "../actions";
 import CustomizedDialogs from "../utils/CustomizedDialogs";
 
 function Copyright() {
@@ -71,7 +71,8 @@ export default function SignIn() {
 
 
     const signin=()=>{
-        debugger
+        userInfo.login_id = userInfo.hp;
+        login(userInfo);
     }
 
     const signup=()=>{
@@ -114,6 +115,7 @@ export default function SignIn() {
 
 
     const [userInfo, setUserInfo] = useState({
+        login_id:'',
         user_id: '',
         hp: '',
         pwd : '',
@@ -168,7 +170,7 @@ export default function SignIn() {
                         required
                         fullWidth
                         type="number"
-                        id="email"
+                        id="hp"
                         label="핸드폰번호"
                         placeholder="('-' 없이 숫자만)"
                         name="hp"
@@ -186,7 +188,7 @@ export default function SignIn() {
                         label="비밀번호"
                         placeholder="숫자 영문자 혼합 4자리 이상"
                         type="password"
-                        id="password"
+                        id="pwd"
                         autoComplete="current-password"
                         onChange={handleChangeInput}
                     />

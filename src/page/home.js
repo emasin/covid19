@@ -35,7 +35,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import {useDispatch,useSelector} from "react-redux";
-import { orderAction} from "../actions/index"
+import { orderAction,addOrderAction} from "../actions/index"
 
 import moment from 'moment';
 import "moment/locale/ko";
@@ -158,7 +158,7 @@ export default function ControlledAccordions() {
             const dateToFormat = new Date();
 
             ord.odt = moment().format('YYYYMMDDhhmmss');
-            debugger
+
             ord.items.push(item);
             ord.cost =ord.items.length;
             ord.status = 0;
@@ -168,7 +168,7 @@ export default function ControlledAccordions() {
        // const l = list.concat([ord]);
 
         setOrd(ord);
-        dispatch(orderAction(list));
+        dispatch(addOrderAction(list));
 
 
     }
@@ -194,7 +194,9 @@ export default function ControlledAccordions() {
             }
 
         });
-        dispatch(orderAction([...list]));
+
+        console.log("orderList",orderList);
+        dispatch(orderAction(orderList));
         initOrder();
 
 

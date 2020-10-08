@@ -4,13 +4,45 @@ import axios from "axios";
 export  function orderAction(olist){
 
     return(dispatch)=>{
+        //usr-9cfe92cd
+        //return dispatch(loginAction(true));
+        console.log(olist);
+        return axios.post("http://localhost:5001/fbweb-31a5f/us-central1/api/order",olist[0][0],
+            {
+                headers: {
+                    'x-access-token': '',
+                }
+            }).then((response)=>{
+            console.log(response.data);
+            dispatch(fetchOrderAction(olist));
+        }).catch(error => {
+            console.log(error.message);
+            throw(error);
+        });
+
+    }
+
+/**
+    return(dispatch)=>{
 
         return dispatch(fetchOrderAction(olist));
-        /**return axios.get("https://app.devkids.co.kr/data/tutor.json").then((response)=>{
-            dispatch(fetchOrderAction(response.data));
-        })**/
-    }
+
+    }**/
 }
+
+
+
+export  function addOrderAction(olist){
+
+    return(dispatch)=>{
+
+        return dispatch(fetchOrderAction(olist));
+
+    }
+
+
+}
+
 
 export function fetchOrderAction(data){
     return{

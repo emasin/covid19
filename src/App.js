@@ -96,9 +96,16 @@ export default function PrimarySearchAppBar(history) {
   const orderList = useSelector(state => state.order, []) || [];
   const [signed,setSigned] = React.useState(false);
   const [orderCount,setOrderCount] = React.useState(0);
-
+  const [nickname,setNickname]  = React.useState('');
+  const [uid,setUid]  = React.useState(0);
   useEffect(()=>{
     console.log("userInfo",userInfo);
+    if(userInfo.info) {
+      setNickname(userInfo.info.username);
+      setUid(userInfo.info._uid);
+      setSigned(true)
+    }
+
   },[userInfo])
   useEffect(()=>{
     const orders = orderList.list && orderList.list.filter((ord)=>{

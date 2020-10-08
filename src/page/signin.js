@@ -15,7 +15,8 @@ import Container from '@material-ui/core/Container';
 import axios from "axios";
 import {login} from "../actions/index";
 import CustomizedDialogs from "../utils/CustomizedDialogs";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 function Copyright() {
     return (
@@ -53,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const _user = useSelector(state => state.user, []) || [];
     const [haveAccount,setHaveAccount] = useState(true);
     const [show,setShow] = useState(false);
     const [dialogInfo,setDialogInfo] = useState({
@@ -129,6 +131,9 @@ export default function SignIn() {
         console.log("userInfo",userInfo);
     },[userInfo])
 
+    useEffect(()=>{
+
+    },[]);
 
     const handleChangeInput = (e) => {
         const { name, value } = e.target;
@@ -138,6 +143,10 @@ export default function SignIn() {
     const gotoSignin =() => {
         setHaveAccount(true)
     }
+
+    if(_user.info)
+        return (<Redirect to={'/'} />);
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />

@@ -123,8 +123,9 @@ const tea_rows = [
 export default function ControlledAccordions() {
     const classes = useStyles();
     const listData = useSelector(state => state.order, []) || [];
+    const _user = useSelector(state => state.user, []) || [];
     const [orders, setOrders] = useState([]);
-    const [ord, setOrd] = useState({cost:0,items:[],status:0,odt:null});
+    const [ord, setOrd] = useState({cost:0,items:[],status:0,odt:null,userInfo:{}});
     const [expanded, setExpanded] = React.useState(false);
     const [hasOrder, setHasOrder] = useState(false);
     const handleChange = (panel) => (event, isExpanded) => {
@@ -185,11 +186,15 @@ export default function ControlledAccordions() {
         compltOrder();
     }
     const compltOrder=( )=>{
+        if(!_user.info) {
+            console.log("alert need auth");
+        }
 
         const list = listData.list ? [...listData.list] : [] ;
         const orderList = list.filter((o,i)=>{
             if( o[0].status === 0 ) {
                 o[0].status = 1;
+                o[0].userInfo = _user.info;
                 return o;
             }
 

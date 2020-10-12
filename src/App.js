@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffect} from 'react';
 import {useSelector} from "react-redux";
-import {Link, Route } from 'react-router-dom';
+import {Link, Redirect, Route} from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,6 +20,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {Container} from "@material-ui/core";
 import HomeContainer from "./container/home-container";
+import AdminContainer from "./container/admin-container";
 import OrderContainer from "./container/order-container";
 import SignIn from "./page/signin";
 
@@ -125,13 +126,22 @@ export default function PrimarySearchAppBar(history) {
   };
 
 
-  const handleGoToOrder = (event) => {
+  const handleGoToOrder = (event) =>
     //Link.props.to = '/orders';
-    history.push( '/orders')
-  };
+
+
+    <Redirect push to="/"/>
+  ;
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
+  };
+
+  const handleGoToManage = () => {
+    //history.push( '/admin/manage')
+    console.log(history);
+    debugger
+    this.props.history.push( '/admin/manage');
   };
 
   const handleMenuClose = () => {
@@ -155,7 +165,8 @@ export default function PrimarySearchAppBar(history) {
           onClose={handleMenuClose}
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={handleGoToManage}>Manage</MenuItem>
+        <MenuItem onClick={handleMenuClose}>LogOut</MenuItem>
       </Menu>
   );
 
@@ -247,6 +258,7 @@ export default function PrimarySearchAppBar(history) {
 
         <Container>
           <Route  exact path="/" component={HomeContainer} />
+          <Route  exact path="/admin/manage" component={AdminContainer} />
           <Route path="/orders" component={OrderContainer} />
 
           <Route path="/signin" component={SignIn} />

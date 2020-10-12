@@ -119,10 +119,10 @@ export default function SignIn() {
 
 
     const [userInfo, setUserInfo] = useState({
-        login_id:'',
+        login_id:'01042922493',
         user_id: '',
-        hp: '',
-        pwd : '',
+        hp: '01042922493',
+        pwd : '1111',
         nickname : '',
         sid : '1'
     });

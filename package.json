@@ -34,6 +34,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.1",
+    "use-react-router": "^1.0.7",
     "video-react": "^0.14.1"
   },
   "scripts": {

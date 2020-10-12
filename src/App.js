@@ -24,6 +24,8 @@ import AdminContainer from "./container/admin-container";
 import OrderContainer from "./container/order-container";
 import SignIn from "./page/signin";
 
+import useReactRouter from 'use-react-router';
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -88,7 +90,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar(history) {
+export default function PrimarySearchAppBar() {
+  const { history, location, match } = useReactRouter();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -130,7 +133,7 @@ export default function PrimarySearchAppBar(history) {
     //Link.props.to = '/orders';
 
 
-    <Redirect push to="/"/>
+      history.push( '/orders');
   ;
 
   const handleMobileMenuClose = () => {
@@ -138,10 +141,8 @@ export default function PrimarySearchAppBar(history) {
   };
 
   const handleGoToManage = () => {
-    //history.push( '/admin/manage')
-    console.log(history);
-    debugger
-    this.props.history.push( '/admin/manage');
+    history.push( '/admin/manage');
+
   };
 
   const handleMenuClose = () => {

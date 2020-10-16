@@ -1,6 +1,32 @@
 import axios from "axios";
 
 
+export  function loadOrderListAction(){
+
+    return(dispatch)=>{
+        return axios.get("http://localhost:5001/fbweb-31a5f/us-central1/api/manage/orderList").then((response)=>{
+
+            dispatch(loadOrderList(response.data));
+        }).catch(error => {
+            console.log(error.message);
+            throw(error);
+        });
+
+    }
+
+
+}
+
+
+export function loadOrderList(data){
+
+    return{
+        type:"LOAD_ORDER_ACTION",
+        payload:data
+    }
+}
+
+
 export  function orderAction(olist){
 
     return(dispatch)=>{
@@ -61,26 +87,6 @@ export  function addItemAction(list){
     }
 }
 
-
-
-
-
-
-export  function loadContent(){
-    return(dispatch)=>{
-        return axios.get("https://app.devkids.co.kr/data/data.json").then((response)=>{
-            dispatch(changeContent(response.data));
-        })
-    }
-}
-
-
-export function changeContent(data){
-    return{
-        type:"CHANGE_CONTENT",
-        data:data
-    }
-}
 
 
 

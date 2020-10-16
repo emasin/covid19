@@ -1,22 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import 'antd/dist/antd.css';
 import { loadOrderListAction} from "../../actions/index"
 
 import "moment/locale/ko";
-import {Button} from "antd";
+import {Button, Card} from "antd";
+import Typography from "@material-ui/core/Typography";
 
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-    }
-}));
 
 
 export default function AdminPage() {
     const dispatch = useDispatch();
-    const classes = useStyles();
+
     const listData = useSelector(state => state.orderManage, []) || [];
 
     const [init ,setInit] = useState(true);
@@ -27,16 +22,28 @@ export default function AdminPage() {
 
     return (
         <>
-        <div className={classes.root}>
-            주문관리
-
+            <br/>
+            <Card title="주문 목록">
             {listData.list && listData.list.map((o, i) => (
-                <div>
-                    {o.odt}
-                </div>
-                ))}
+                <>
+                <Card type="inner" title={<>주문번호 {o.odt}<br/> 닉네임 {o.userInfo && o.userInfo.username} </>} extra={<><a href="#">준비중</a></>}>
+                    <Button  variant="contained" color="secondary" >주문취소</Button>
+                    {o.items.map((item,idx)=>
+                        (<>
+                            <Typography variant="body2" color="textSecondary" align="left">
+                                {item.fname}
+                            </Typography>
+                        </>))
+                    }
 
-        </div>
+
+
+                </Card>
+
+                </>
+            ))}
+            </Card>
+
 
             </>
     );

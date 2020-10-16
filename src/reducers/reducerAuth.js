@@ -2,8 +2,7 @@
 export default function (state = [], action) {
 
     if(action.type==="LOGIN"){
-        debugger
-      console.log(action.payload);
+
         return{
             ...state,
 

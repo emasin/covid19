@@ -8,12 +8,6 @@ export default function (state = [], action) {
             ...state,
             list:action.payload
         }
-    }else  if(action.type==="ADD_ITEM_ACTION") {
-
-        return {
-            ...state,
-            list: action.payload
-        }
     }else{
         return{
             ...state

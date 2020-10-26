@@ -1,6 +1,60 @@
 import axios from "axios";
 
 
+
+export  function orderCompltAction(oid){
+
+    return(dispatch)=>{
+        //usr-9cfe92cd
+        //return dispatch(loginAction(true));
+        //console.log(olist);
+        return axios.post("http://localhost:5001/fbweb-31a5f/us-central1/api/manage/complt",{
+            oid:oid
+            },
+            {
+                headers: {
+                    'x-access-token': '',
+                }
+            }).then((response)=>{
+            console.log(response.data);
+           // dispatch(fetchOrderAction(olist));
+        }).catch(error => {
+            console.log(error.message);
+            throw(error);
+        });
+
+    }
+
+}
+
+
+export  function orderCancelAction(oid){
+
+    return(dispatch)=>{
+        //usr-9cfe92cd
+        //return dispatch(loginAction(true));
+        //console.log(olist);
+        return axios.post("http://localhost:5001/fbweb-31a5f/us-central1/api/manage/cancel",{
+                oid:oid
+            },
+            {
+                headers: {
+                    'x-access-token': '',
+                }
+            }).then((response)=>{
+            console.log(response.data);
+            // dispatch(fetchOrderAction(olist));
+        }).catch(error => {
+            console.log(error.message);
+            throw(error);
+        });
+
+    }
+
+}
+
+
+
 export  function loadOrderListAction(){
 
     return(dispatch)=>{
@@ -48,12 +102,6 @@ export  function orderAction(olist){
 
     }
 
-/**
-    return(dispatch)=>{
-
-        return dispatch(fetchOrderAction(olist));
-
-    }**/
 }
 
 
